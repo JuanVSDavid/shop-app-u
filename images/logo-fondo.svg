@@ -1,0 +1,14 @@
+<svg width="1000" height="1000" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Definición del Degradado de Fondo (Índigo a Púrpura) -->
+    <defs>
+        <linearGradient id="appGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <!-- Índigo (Similar a indigo-500) -->
+            <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
+            <!-- Púrpura (Similar a purple-600) -->
+            <stop offset="100%" style="stop-color:#9333EA;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+
+    <!-- Fondo cuadrado sin redondeo, cubriendo todo el viewBox -->
+    <rect x="0" y="0" width="24" height="24" fill="url(#appGradient)" />
+</svg>
