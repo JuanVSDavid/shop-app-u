@@ -1,4 +1,4 @@
-package co.edu.ucompensar.shop
+package co.edu.ucompensar.shop.infraestructure.entrypoint.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -46,10 +46,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import co.edu.ucompensar.shop.ui.theme.AccentBlue
-import co.edu.ucompensar.shop.ui.theme.DarkFieldColor
-import co.edu.ucompensar.shop.ui.theme.DarkPrimary
-import co.edu.ucompensar.shop.ui.theme.TextPrimary
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.AccentBlue
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.DarkFieldColor
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.DarkPrimary
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.TextPrimary
 
 private val RedButtonColor = Color(0xFF4C2C3A)
 

@@ -1,4 +1,4 @@
-package co.edu.ucompensar.shop
+package co.edu.ucompensar.shop.infraestructure.entrypoint.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,12 +36,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import co.edu.ucompensar.shop.navigation.AppScreens
-import co.edu.ucompensar.shop.ui.theme.AccentBlue
-import co.edu.ucompensar.shop.ui.theme.AccentBlueDarker
-import co.edu.ucompensar.shop.ui.theme.DarkPrimary
-import co.edu.ucompensar.shop.ui.theme.TextPrimary
-import co.edu.ucompensar.shop.ui.theme.TextSecondary
+import co.edu.ucompensar.shop.R
+import co.edu.ucompensar.shop.infraestructure.entrypoint.navigation.AppScreens
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.AccentBlue
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.AccentBlueDarker
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.DarkPrimary
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.TextPrimary
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.TextSecondary
 
 private val HeaderBackgroundColor = Color(0xFFF0EBE5)
 

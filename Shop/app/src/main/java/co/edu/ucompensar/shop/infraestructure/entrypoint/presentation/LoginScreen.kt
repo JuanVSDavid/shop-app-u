@@ -1,4 +1,4 @@
-package co.edu.ucompensar.shop
+package co.edu.ucompensar.shop.infraestructure.entrypoint.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -39,6 +39,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -52,13 +53,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import co.edu.ucompensar.shop.navigation.AppScreens
-import co.edu.ucompensar.shop.ui.theme.AccentBlue
-import co.edu.ucompensar.shop.ui.theme.BorderGray
-import co.edu.ucompensar.shop.ui.theme.DarkFieldColor
-import co.edu.ucompensar.shop.ui.theme.DarkPrimary
-import co.edu.ucompensar.shop.ui.theme.TextPrimary
-import co.edu.ucompensar.shop.ui.theme.TextSecondary
+import co.edu.ucompensar.shop.R
+import co.edu.ucompensar.shop.infraestructure.entrypoint.navigation.AppScreens
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.AccentBlue
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.BorderGray
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.DarkFieldColor
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.DarkPrimary
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.TextPrimary
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.TextSecondary
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
@@ -269,7 +271,7 @@ private fun SocialLoginButton(text: String, icon: Int, modifier: Modifier = Modi
         shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
         border = ButtonDefaults.outlinedButtonBorder.copy(
             width = 1.dp,
-            brush = androidx.compose.ui.graphics.SolidColor(BorderGray)
+            brush = SolidColor(BorderGray)
         )
     ) {
         Image(

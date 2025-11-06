@@ -1,4 +1,4 @@
-package co.edu.ucompensar.shop.ui.theme
+package co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme
 
 
 import android.app.Activity

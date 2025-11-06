@@ -1,4 +1,4 @@
-package co.edu.ucompensar.shop
+package co.edu.ucompensar.shop.infraestructure.entrypoint.presentation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -43,14 +43,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import co.edu.ucompensar.shop.navigation.AppScreens
-import co.edu.ucompensar.shop.ui.theme.AccentBlue
-import co.edu.ucompensar.shop.ui.theme.AccentBlueDarker
-import co.edu.ucompensar.shop.ui.theme.BorderGray
-import co.edu.ucompensar.shop.ui.theme.DarkPrimary
-import co.edu.ucompensar.shop.ui.theme.DarkSecondary
-import co.edu.ucompensar.shop.ui.theme.TextPrimary
-import co.edu.ucompensar.shop.ui.theme.TextSecondary
+import co.edu.ucompensar.shop.infraestructure.entrypoint.navigation.AppScreens
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.AccentBlue
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.AccentBlueDarker
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.BorderGray
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.DarkPrimary
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.DarkSecondary
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.TextPrimary
+import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.TextSecondary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,4 @@
-package co.edu.ucompensar.shop.ui.theme
+package co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 val DarkPrimary = Color(0xFF101C22)

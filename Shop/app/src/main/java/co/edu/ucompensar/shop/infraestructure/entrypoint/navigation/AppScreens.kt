@@ -1,4 +1,4 @@
-package co.edu.ucompensar.shop.navigation
+package co.edu.ucompensar.shop.infraestructure.entrypoint.navigation
 
 sealed class AppScreens(val route: String) {
     object SplashScreen : AppScreens("splash_screen")
