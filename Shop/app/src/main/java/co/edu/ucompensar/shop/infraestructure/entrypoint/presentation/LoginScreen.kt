@@ -28,6 +28,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -35,12 +36,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -51,9 +55,11 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import co.edu.ucompensar.shop.R
+import co.edu.ucompensar.shop.domain.usecase.UserUseCase
 import co.edu.ucompensar.shop.infraestructure.entrypoint.navigation.AppScreens
 import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.AccentBlue
 import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.BorderGray
@@ -61,9 +67,20 @@ import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.D
 import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.DarkPrimary
 import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.TextPrimary
 import co.edu.ucompensar.shop.infraestructure.entrypoint.presentation.ui.theme.TextSecondary
+import co.edu.ucompensar.shop.infraestructure.entrypoint.security.SessionViewModel
+import kotlinx.coroutines.launch
 
 @Composable
-fun LoginScreen(navController: NavHostController) {
+fun LoginScreen(navController: NavHostController, sessionViewModel: SessionViewModel) {
+    val context = LocalContext.current
+    val userUseCase = remember { UserUseCase(context) }
+    val scope = rememberCoroutineScope()
+
+    var email by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+    var error by remember { mutableStateOf<String?>(null) }
+    var isLoading by remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .background(DarkPrimary)
@@ -109,10 +126,24 @@ fun LoginScreen(navController: NavHostController) {
         LoginInputField(
             label = "Email",
             placeholder = "tucorreo@ejemplo.com",
-            leadingIcon = Icons.Default.Email
+            leadingIcon = Icons.Default.Email,
+            onValueChange = { email = it },
+            value = email,
         )
         Spacer(modifier = Modifier.height(16.dp))
-        LoginPasswordField()
+        LoginPasswordField(
+            value = password,
+            onValueChange = { password = it }
+        )
+
+        error?.let {
+            Text(
+                text = it,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(vertical = 8.dp),
+                fontSize = 14.sp
+            )
+        }
 
         Text(
             text = "¿Olvidaste tu contraseña?",
@@ -127,14 +158,29 @@ fun LoginScreen(navController: NavHostController) {
 
         Button(
             onClick = {
-                navController.popBackStack()
-                navController.navigate(AppScreens.ProfileScreen.route)
+                isLoading = true
+                error = null
+                scope.launch {
+                    try {
+                        val loggedInUser = userUseCase.login(email, password)
+                        sessionViewModel.onLoginSuccess(loggedInUser)
+
+                        navController.navigate(AppScreens.ProfileScreen.route) {
+                            popUpTo(AppScreens.LoginScreen.route) { inclusive = true }
+                        }
+                    } catch (e: IllegalArgumentException) {
+                        error = e.message
+                    } finally {
+                        isLoading = false
+                    }
+                }
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
             shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = AccentBlue)
+            colors = ButtonDefaults.buttonColors(containerColor = AccentBlue),
+            enabled = !isLoading
         ) {
             Text("Iniciar Sesión", fontSize = 18.sp, fontWeight = FontWeight.Bold)
         }
@@ -171,8 +217,7 @@ fun LoginScreen(navController: NavHostController) {
 
 
 @Composable
-private fun LoginInputField(label: String, placeholder: String, leadingIcon: ImageVector) {
-    var text by rememberSaveable { mutableStateOf("") }
+private fun LoginInputField(label: String, placeholder: String, leadingIcon: ImageVector, value: String, onValueChange: (String) -> Unit) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
             text = label,
@@ -181,8 +226,8 @@ private fun LoginInputField(label: String, placeholder: String, leadingIcon: Ima
             modifier = Modifier.padding(bottom = 4.dp)
         )
         OutlinedTextField(
-            value = text,
-            onValueChange = { text = it },
+            value = value,
+            onValueChange = onValueChange,
             modifier = Modifier.fillMaxWidth(),
             placeholder = { Text(placeholder) },
             leadingIcon = { Icon(leadingIcon, contentDescription = null, tint = TextSecondary) },
@@ -202,8 +247,7 @@ private fun LoginInputField(label: String, placeholder: String, leadingIcon: Ima
 }
 
 @Composable
-private fun LoginPasswordField() {
-    var password by rememberSaveable { mutableStateOf("") }
+private fun LoginPasswordField(value: String, onValueChange: (String) -> Unit) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
     Column {
@@ -214,8 +258,8 @@ private fun LoginPasswordField() {
             modifier = Modifier.padding(bottom = 4.dp)
         )
         OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
+            value = value,
+            onValueChange = onValueChange,
             modifier = Modifier.fillMaxWidth(),
             placeholder = { Text("Contraseña") },
             leadingIcon = {
@@ -306,5 +350,6 @@ private fun RegisterRedirectText(navController: NavHostController) {
 @Composable
 fun LoginScreenPreview() {
     val navController = rememberNavController()
-    LoginScreen(navController)
+    val sessionViewModel = viewModel<SessionViewModel>()
+    LoginScreen(navController, sessionViewModel)
 }

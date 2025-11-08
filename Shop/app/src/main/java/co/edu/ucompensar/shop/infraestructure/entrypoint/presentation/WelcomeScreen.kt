@@ -2,6 +2,7 @@ package co.edu.ucompensar.shop.infraestructure.entrypoint.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -150,7 +151,9 @@ fun WelcomeScreen(navController: NavHostController) {
                 text = "Continuar como invitado",
                 color = AccentBlue,
                 fontSize = 14.sp,
-                style = TextStyle(textDecoration = TextDecoration.Underline)
+                style = TextStyle(textDecoration = TextDecoration.Underline),
+                modifier =
+                    Modifier.clickable(onClick = { navController.navigate(AppScreens.PublicProductListScreen.route) })
             )
             Spacer(modifier = Modifier.height(24.dp))
         }
